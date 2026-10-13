@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Қазақ зиялылары — Тест</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    min-height: 100vh;
+    padding: 30px 15px;
+    color: #222;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    padding: 35px 30px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #1e3c72;
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .question {
+    background: #f7f9fc;
+    border-left: 5px solid #2a5298;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+  }
+
+  .question.correct {
+    border-left-color: #2ecc71;
+    background: #eafaf1;
+  }
+
+  .question.wrong {
+    border-left-color: #e74c3c;
+    background: #fdecea;
+  }
+
+  .q-text {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 14px;
+    color: #1e3c72;
+    line-height: 1.5;
+  }
+
+  .options label {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background: #fff;
+    border: 2px solid #dfe6ee;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .options label:hover {
+    border-color: #2a5298;
+    background: #eef4ff;
+  }
+
+  .options input {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .options input:checked + span {
+    font-weight: 600;
+    color: #1e3c72;
+  }
+
+  .answer-feedback {
+    margin-top: 12px;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 600;
+  }
+
+  .answer-feedback.show { display: block; }
+  .answer-feedback.correct { background: #d4f5e2; color: #1e7e46; }
+  .answer-feedback.wrong { background: #fadbd8; color: #a93226; }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: 0.3s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(42,82,152,0.4);
+  }
+
+  .btn:active { transform: translateY(0); }
+
+  .btn.secondary {
+    background: #fff;
+    color: #1e3c72;
+    border: 2px solid #1e3c72;
+  }
+
+  .result-box {
+    display: none;
+    text-align: center;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 25px;
+    animation: fadeIn 0.5s;
+  }
+
+  .result-box.show { display: block; }
+
+  .result-box h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .score {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 10px 0;
+  }
+
+  .score span {
+    font-size: 24px;
+    color: #888;
+  }
+
+  .message {
+    font-size: 16px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>ХХ ғасырдың басындағы қазақ зиялылары</h1>
+  <p class="subtitle">10 сұрақ · Әр дұрыс жауапқа 1 балл · Ең жоғары ұпай — 10</p>
+
+  <form id="quizForm">
+    <!-- 1 -->
+    <div class="question" data-q="1">
+      <div class="q-text">1. ХХ ғасырдың басындағы қазақ зиялыларының мақсаты қандай болды?</div>
+      <div class="options">
+        <label><input type="radio" name="q1" value="a"><span>A. Қазақ халқының ұлттық мүддесін қорғау</span></label>
+        <label><input type="radio" name="q1" value="b"><span>B. Сауда-саттықты дамыту</span></label>
+        <label><input type="radio" name="q1" value="c"><span>C. Жаңа қалалар салу</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="a">Дұрыс жауап: A. Қазақ халқының ұлттық мүддесін қорғау</div>
+    </div>
+
+    <!-- 2 -->
+    <div class="question" data-q="2">
+      <div class="q-text">2. Әлихан Бөкейхан кім?</div>
+      <div class="options">
+        <label><input type="radio" name="q2" value="a"><span>A. Ақын және сазгер</span></label>
+        <label><input type="radio" name="q2" value="b"><span>B. Саяси көшбасшы, қоғам қайраткері</span></label>
+        <label><input type="radio" name="q2" value="c"><span>C. Әскери қолбасшы</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="b">Дұрыс жауап: B. Саяси көшбасшы, қоғам қайраткері</div>
+    </div>
+
+    <!-- 3 -->
+    <div class="question" data-q="3">
+      <div class="q-text">3. Ахмет Байтұрсынұлы қазақ халқына қандай қызмет атқарды?</div>
+      <div class="options">
+        <label><input type="radio" name="q3" value="a"><span>A. Тек әскери қызмет атқарды</span></label>
+        <label><input type="radio" name="q3" value="b"><span>B. Теміржол саласын дамытты</span></label>
+        <label><input type="radio" name="q3" value="c"><span>C. Ағартушы, тіл білімінің негізін қалаушы болды</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="c">Дұрыс жауап: C. Ағартушы, тіл білімінің негізін қалаушы болды</div>
+    </div>
+
+    <!-- 4 -->
+    <div class="question" data-q="4">
+      <div class="q-text">4. Міржақып Дулатұлы кім?</div>
+      <div class="options">
+        <label><input type="radio" name="q4" value="a"><span>A. Ақын, жазушы, қоғам қайраткері</span></label>
+        <label><input type="radio" name="q4" value="b"><span>B. Дәрігер, ғалым</span></label>
+        <label><input type="radio" name="q4" value="c"><span>C. Саяхатшы, теңізші</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="a">Дұрыс жауап: A. Ақын, жазушы, қоғам қайраткері</div>
+    </div>
+
+    <!-- 5 -->
+    <div class="question" data-q="5">
+      <div class="q-text">5. Мұхамеджан Тынышбаев кім болған?</div>
+      <div class="options">
+        <label><input type="radio" name="q5" value="a"><span>A. Белгілі суретші</span></label>
+        <label><input type="radio" name="q5" value="b"><span>B. Тұңғыш қазақ инженер-теміржолшыларының бірі</span></label>
+        <label><input type="radio" name="q5" value="c"><span>C. Журнал редакторы</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="b">Дұрыс жауап: B. Тұңғыш қазақ инженер-теміржолшыларының бірі</div>
+    </div>
+
+    <!-- 6 -->
+    <div class="question" data-q="6">
+      <div class="q-text">6. «Айқап» журналы қай жылы жарық көрді?</div>
+      <div class="options">
+        <label><input type="radio" name="q6" value="a"><span>A. 1905 жылы</span></label>
+        <label><input type="radio" name="q6" value="b"><span>B. 1917 жылы</span></label>
+        <label><input type="radio" name="q6" value="c"><span>C. 1911 жылы</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="c">Дұрыс жауап: C. 1911 жылы</div>
+    </div>
+
+    <!-- 7 -->
+    <div class="question" data-q="7">
+      <div class="q-text">7. «Айқап» журналының редакторы кім болды?</div>
+      <div class="options">
+        <label><input type="radio" name="q7" value="a"><span>A. Мұхамеджан Сералин</span></label>
+        <label><input type="radio" name="q7" value="b"><span>B. Ахмет Байтұрсынұлы</span></label>
+        <label><input type="radio" name="q7" value="c"><span>C. Әлихан Бөкейхан</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="a">Дұрыс жауап: A. Мұхамеджан Сералин</div>
+    </div>
+
+    <!-- 8 -->
+    <div class="question" data-q="8">
+      <div class="q-text">8. Қазақ зиялылары халықтың қандай санасына ықпал етті?</div>
+      <div class="options">
+        <label><input type="radio" name="q8" value="a"><span>A. Тек экономикалық санасына</span></label>
+        <label><input type="radio" name="q8" value="b"><span>B. Құқықтық және эстетикалық санасына</span></label>
+        <label><input type="radio" name="q8" value="c"><span>C. Тек әскери санасына</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="b">Дұрыс жауап: B. Құқықтық және эстетикалық санасына</div>
+    </div>
+
+    <!-- 9 -->
+    <div class="question" data-q="9">
+      <div class="q-text">9. 1907 жылы қазақ тілінің мәртебесі қалай өзгерді?</div>
+      <div class="options">
+        <label><input type="radio" name="q9" value="a"><span>A. Мемлекеттік тіл болды</span></label>
+        <label><input type="radio" name="q9" value="b"><span>B. Ресми мәртебесі көтерілді</span></label>
+        <label><input type="radio" name="q9" value="c"><span>C. Төмендетілді</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="c">Дұрыс жауап: C. Төмендетілді</div>
+    </div>
+
+    <!-- 10 -->
+    <div class="question" data-q="10">
+      <div class="q-text">10. Қазақ зиялылары қазақ халқының қандай құқыққа ие болуын қалады?</div>
+      <div class="options">
+        <label><input type="radio" name="q10" value="a"><span>A. Өзге халықтармен тең құқықты болуын</span></label>
+        <label><input type="radio" name="q10" value="b"><span>B. Тек ауылда өмір сүру құқығын</span></label>
+        <label><input type="radio" name="q10" value="c"><span>C. Тек сауда жасау құқығын</span></label>
+      </div>
+      <div class="answer-feedback" data-correct="a">Дұрыс жауап: A. Өзге халықтармен тең құқықты болуын</div>
+    </div>
+
+    <button type="button" class="btn" id="checkBtn" onclick="checkAnswers()">Жауаптарды тексеру</button>
+    <button type="button" class="btn secondary" id="resetBtn" onclick="resetQuiz()" style="display:none;">Қайта тапсыру</button>
+  </form>
+
+  <div class="result-box" id="resultBox">
+    <h2>Нәтиже</h2>
+    <div class="score" id="scoreDisplay">0 <span>/ 10</span></div>
+    <div class="message" id="message"></div>
+  </div>
+</div>
+
+<script>
+  // Дұрыс жауаптар
+  const correctAnswers = {
+    q1: 'a',
+    q2: 'b',
+    q3: 'c',
+    q4: 'a',
+    q5: 'b',
+    q6: 'c',
+    q7: 'a',
+    q8: 'b',
+    q9: 'c',
+    q10: 'a'
+  };
+
+  const totalQuestions = 10;
+
+  function checkAnswers() {
+    let score = 0;
+    let allAnswered = true;
+
+    for (let i = 1; i <= totalQuestions; i++) {
+      const name = 'q' + i;
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+      const questionDiv = document.querySelector(`.question[data-q="${i}"]`);
+      const feedback = questionDiv.querySelector('.answer-feedback');
+
+      // Алдыңғы стильдерді тазалау
+      questionDiv.classList.remove('correct', 'wrong');
+      feedback.classList.remove('show', 'correct', 'wrong');
+
+      if (!selected) {
+        allAnswered = false;
+        continue;
+      }
+
+      const userAnswer = selected.value;
+      const correct = correctAnswers[name];
+
+      if (userAnswer === correct) {
+        score++;
+        questionDiv.classList.add('correct');
+        feedback.classList.add('show', 'correct');
+      } else {
+        questionDiv.classList.add('wrong');
+        feedback.classList.add('show', 'wrong');
+      }
+    }
+
+    // Барлық сұраққа жауап берілмесе
+    if (!allAnswered) {
+      alert('Барлық сұраққа жауап беріңіз!');
+      // Стильдерді тазалау
+      document.querySelectorAll('.question').forEach(q => {
+        q.classList.remove('correct', 'wrong');
+      });
+      document.querySelectorAll('.answer-feedback').forEach(f => {
+        f.classList.remove('show', 'correct', 'wrong');
+      });
+      return;
+    }
+
+    // Нәтижені көрсету
+    const resultBox = document.getElementById('resultBox');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const message = document.getElementById('message');
+
+    scoreDisplay.innerHTML = score + ' <span>/ ' + totalQuestions + '</span>';
+    resultBox.classList.add('show');
+
+    if (score === 10) {
+      resultBox.style.background = 'linear-gradient(135deg, #d4f5e2, #a8e6c1)';
+      resultBox.style.color = '#1e7e46';
+      message.textContent = 'Керемет! Барлық жауап дұрыс! 🎉';
+    } else if (score >= 7) {
+      resultBox.style.background = 'linear-gradient(135deg, #fff3cd, #ffe69c)';
+      resultBox.style.color = '#856404';
+      message.textContent = 'Жақсы нәтиже! Тағы да жаттығыңыз. 👍';
+    } else if (score >= 4) {
+      resultBox.style.background = 'linear-gradient(135deg, #ffe0b2, #ffcc80)';
+      resultBox.style.color = '#e65100';
+      message.textContent = 'Орташа нәтиже. Тақырыпты қайталаңыз. 📖';
+    } else {
+      resultBox.style.background = 'linear-gradient(135deg, #fadbd8, #f5b7b1)';
+      resultBox.style.color = '#a93226';
+      message.textContent = 'Нашар нәтиже. Материалды қайта оқып шығыңыз. 📚';
+    }
+
+    // Нәтиже терезесіне жылжыту
+    resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Батырмаларды ауыстыру
+    document.getElementById('checkBtn').style.display = 'none';
+    document.getElementById('resetBtn').style.display = 'block';
+
+    // Радио батырмаларды бұғаттау
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = true);
+  }
+
+  function resetQuiz() {
+    // Барлық таңдауларды тазалау
+    document.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.checked = false;
+      r.disabled = false;
+    });
+
+    // Стильдерді тазалау
+    document.querySelectorAll('.question').forEach(q => {
+      q.classList.remove('correct', 'wrong');
+    });
+    document.querySelectorAll('.answer-feedback').forEach(f => {
+      f.classList.remove('show', 'correct', 'wrong');
+    });
+
+    // Нәтиже терезесін жасыру
+    document.getElementById('resultBox').classList.remove('show');
+
+    // Батырмаларды қалпына келтіру
+    document.getElementById('checkBtn').style.display = 'block';
+    document.getElementById('resetBtn').style.display = 'none';
+
+    // Жоғарыға жылжыту
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
